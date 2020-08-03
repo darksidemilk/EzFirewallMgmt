@@ -47,7 +47,7 @@ function Get-ProgramRuleName {
         [Parameter()]
         [ValidateSet("Block","Unblock")]
         [string]$type,
-        [string[]]$program,
+        [string]$program,
         [string]$exe="*"
     )
     

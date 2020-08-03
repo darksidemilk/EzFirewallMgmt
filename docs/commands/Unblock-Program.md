@@ -15,12 +15,12 @@ or unblocks all specific exes at given paths
 
 ### byName (Default)
 ```
-Unblock-Program [-name <String>] [<CommonParameters>]
+Unblock-Program [[-name] <String>] [<CommonParameters>]
 ```
 
 ### byPath
 ```
-Unblock-Program [-path <String[]>] [-programName <String>] [<CommonParameters>]
+Unblock-Program [-path <Object>] [-programName <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -52,6 +52,17 @@ Will create rules to unblock the powershell 7 exe.
 Since no name was provided the rule will be called
 \`Unblock program pwsh - pwsh.exe\`
 
+### EXAMPLE 3
+```
+Get-ExePaths "steam" |  Where-Object BaseName -in "Borderlands3","Drawful 2" | Unblock-Program -programName "selectedSteam"
+```
+
+Will find all the exe's in the steam program folders and filter it down to only the exe's with basenames of
+Borderlands3 and Drawful 2 then pipe those into the path param and create unblock rules for them with a programName 
+of 'selectedSteam'.
+i.e.
+\`Unblock program selectedSteam - Borderlands3.exe\`
+
 ## PARAMETERS
 
 ### -name
@@ -63,7 +74,7 @@ Parameter Sets: byName
 Aliases:
 
 Required: False
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -71,16 +82,17 @@ Accept wildcard characters: False
 
 ### -path
 The path or list of paths to exes to unblock
+Can also be passed via pipeline as a FileInfo Object from Get-ChildItem or Get-ExePaths
 
 ```yaml
-Type: String[]
+Type: Object
 Parameter Sets: byPath
 Aliases:
 
 Required: False
 Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 

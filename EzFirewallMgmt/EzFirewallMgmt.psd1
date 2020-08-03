@@ -12,7 +12,7 @@
 RootModule = 'EzFirewallMgmt.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0.10.8'
+ModuleVersion = '1.0.40.2'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -33,20 +33,20 @@ Copyright = '2020'
 Description = 'Simplified helper functions to block and unblock ports and programs
 Utilizes New-NetFirewallRule and Remove-NetFirewallRule functions and turns them into easier versions'
 
-# Minimum version of the PowerShell engine required by this module
+# Minimum version of the Windows PowerShell engine required by this module
 PowerShellVersion = '3.0'
 
-# Name of the PowerShell host required by this module
+# Name of the Windows PowerShell host required by this module
 # PowerShellHostName = ''
 
-# Minimum version of the PowerShell host required by this module
+# Minimum version of the Windows PowerShell host required by this module
 # PowerShellHostVersion = ''
 
 # Minimum version of Microsoft .NET Framework required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
 # DotNetFrameworkVersion = ''
 
 # Minimum version of the common language runtime (CLR) required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
-# ClrVersion = ''
+# CLRVersion = ''
 
 # Processor architecture (None, X86, Amd64) required by this module
 # ProcessorArchitecture = ''
@@ -70,7 +70,7 @@ PowerShellVersion = '3.0'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Block-Port', 'Block-Program', 'Get-PortRuleName', 
+FunctionsToExport = 'Block-Port', 'Block-Program', 'Get-ExePaths', 'Get-PortRuleName', 
                'Get-ProgramRuleName', 'Remove-PortRule', 'Remove-ProgramRule', 
                'Unblock-Port', 'Unblock-Program'
 
@@ -111,6 +111,98 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = '
+# 1.0.40.2
+
+	Made it so pipeline variables can be used for paths with examples of filtered get-exepaths output being piped in to show how you could select exes for a program name
+
+# 1.0.22.18
+
+	Got pipeline working correctly
+
+# 1.0.22.17
+
+	testing different begin/process/end order
+
+# 1.0.22.16
+
+	testing different begin/process/end order
+
+# 1.0.22.15
+
+	testing different begin/process/end order
+
+# 1.0.22.14
+
+	testing different begin/process/end order
+
+# 1.0.22.13
+
+	testing different begin/process/end order
+
+# 1.0.22.12
+
+	testing different begin/process/end order
+
+# 1.0.22.11
+
+	testing additional parameter settings
+
+# 1.0.22.10
+
+	testing additional parameter settings
+
+# 1.0.22.9
+
+	adjusted process blocks so pipeline can work proper
+
+# 1.0.22.8
+
+	adjusted process blocks so pipeline can work proper
+
+# 1.0.22.7
+
+	adjusted process blocks so pipeline can work proper
+
+# 1.0.22.6
+
+	dont specify type for path
+
+# 1.0.22.5
+
+	added debug lines
+
+# 1.0.22.4
+
+	trying path var as fileinfo object for pipeline
+
+# 1.0.22.3
+
+	Added pipeline input for bypath with examples for using a whereobject pipe on get-exepaths
+
+# 1.0.22.2
+
+	Added pipeline input for bypath with examples for using a whereobject pipe on get-exepaths
+
+# 1.0.22.1
+
+	Tested and confirmed that unblock/block program by name function is actually working as ecpected now  and rebuilding before publishing with new version build number
+
+# 1.0.10.12
+
+	Created new function for getting exe paths separately and made sure each index of the list was a single path not a group of paths
+
+# 1.0.10.11
+
+	Adding debug lines to figure out why programrules arent creating
+
+# 1.0.10.10
+
+	Use -Filter "*.exe" not -include when finding all exes with get-childitem
+
+# 1.0.10.9
+
+	Use -Filter "*.exe" not -include when finding all exes with get-childitem
+
 # 1.0.10.8
 
 	Use -Filter "*.exe" not -include when finding all exes with get-childitem

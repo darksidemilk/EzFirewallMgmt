@@ -7,6 +7,7 @@ nav:
     - 'Index': 'commands/index.md'
     - 'Block-Port': 'commands/Block-Port.md'
     - 'Block-Program': 'commands/Block-Program.md'
+    - 'Get-ExePaths': 'commands/Get-ExePaths.md'
     - 'Get-PortRuleName': 'commands/Get-PortRuleName.md'
     - 'Get-ProgramRuleName': 'commands/Get-ProgramRuleName.md'
     - 'Remove-PortRule': 'commands/Remove-PortRule.md'

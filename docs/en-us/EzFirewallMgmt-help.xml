@@ -121,7 +121,7 @@
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Block-Program</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>name</maml:name>
           <maml:Description>
             <maml:para>The name of the program folder to match, will also be used in naming the rules</maml:para>
@@ -136,14 +136,14 @@
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Block-Program</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
           <maml:name>path</maml:name>
           <maml:Description>
-            <maml:para>The path or list of paths to exes to Block</maml:para>
+            <maml:para>The path or list of paths to exes to Block Can also be passed via pipeline as a FileInfo Object from Get-ChildItem or Get-ExePaths</maml:para>
           </maml:Description>
-          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
           <dev:type>
-            <maml:name>String[]</maml:name>
+            <maml:name>Object</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -163,7 +163,7 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>name</maml:name>
         <maml:Description>
           <maml:para>The name of the program folder to match, will also be used in naming the rules</maml:para>
@@ -175,14 +175,14 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
         <maml:name>path</maml:name>
         <maml:Description>
-          <maml:para>The path or list of paths to exes to Block</maml:para>
+          <maml:para>The path or list of paths to exes to Block Can also be passed via pipeline as a FileInfo Object from Get-ChildItem or Get-ExePaths</maml:para>
         </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
         <dev:type>
-          <maml:name>String[]</maml:name>
+          <maml:name>Object</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -222,6 +222,13 @@
           <maml:para>Will create rules to Block the powershell 7 exe. Since no name was provided the rule will be called `Block program pwsh - pwsh.exe {inbound|outbound}`</maml:para>
         </dev:remarks>
       </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>Get-ExePaths "steam" |  Where-Object BaseName -in "Borderlands3","Drawful 2" | Block-Program -programName "selectedSteam"</dev:code>
+        <dev:remarks>
+          <maml:para>Will find all the exe's in the steam program folders and filter it down to only the exe's with basenames of Borderlands3 and Drawful 2 then pipe those into the path param and create block rules for them with a programName  of 'selectedSteam'. i.e. `Block program selectedSteam - Borderlands3.exe`</maml:para>
+        </dev:remarks>
+      </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
@@ -243,6 +250,80 @@
       <maml:navigationLink>
         <maml:linkText>New-NetfirewallRule</maml:linkText>
         <maml:uri>https://docs.microsoft.com/en-us/powershell/module/netsecurity/New-NetfirewallRule</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-ExePaths</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>ExePaths</command:noun>
+      <maml:description>
+        <maml:para>Gets the exe's of a matching program name</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Searches through all common install directories for exes with a matching parent directory name</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-ExePaths</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>name</maml:name>
+          <maml:Description>
+            <maml:para>The name to use when searching for exe's will be matched anywhere in the name</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>name</maml:name>
+        <maml:Description>
+          <maml:para>The name to use when searching for exe's will be matched anywhere in the name</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Uses a list collection object and get-childitem. Adds to the list at the of filtering with get child item so each item is a single entry in the list</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>Get-ExePaths -name "steam"</dev:code>
+        <dev:remarks>
+          <maml:para>Will return all exes in the steam program file and appdata folders</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-ExePaths</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Get-ExePaths</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Block-Program</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Block-Program</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Unblock-Program</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Unblock-Program</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -404,9 +485,9 @@
           <maml:Description>
             <maml:para>The program name the rule controls. Is created from the name/programName parameter in Unblock/Block-Program. Since groups of rules are created by each creating function this helps maintain a findable name structure.</maml:para>
           </maml:Description>
-          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
-            <maml:name>String[]</maml:name>
+            <maml:name>String</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -443,9 +524,9 @@
         <maml:Description>
           <maml:para>The program name the rule controls. Is created from the name/programName parameter in Unblock/Block-Program. Since groups of rules are created by each creating function this helps maintain a findable name structure.</maml:para>
         </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
-          <maml:name>String[]</maml:name>
+          <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -879,7 +960,7 @@
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Unblock-Program</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>name</maml:name>
           <maml:Description>
             <maml:para>The name of the program folder to match, will also be used in naming the rules</maml:para>
@@ -894,14 +975,14 @@
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Unblock-Program</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
           <maml:name>path</maml:name>
           <maml:Description>
-            <maml:para>The path or list of paths to exes to unblock</maml:para>
+            <maml:para>The path or list of paths to exes to unblock Can also be passed via pipeline as a FileInfo Object from Get-ChildItem or Get-ExePaths</maml:para>
           </maml:Description>
-          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
           <dev:type>
-            <maml:name>String[]</maml:name>
+            <maml:name>Object</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -921,7 +1002,7 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>name</maml:name>
         <maml:Description>
           <maml:para>The name of the program folder to match, will also be used in naming the rules</maml:para>
@@ -933,14 +1014,14 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
         <maml:name>path</maml:name>
         <maml:Description>
-          <maml:para>The path or list of paths to exes to unblock</maml:para>
+          <maml:para>The path or list of paths to exes to unblock Can also be passed via pipeline as a FileInfo Object from Get-ChildItem or Get-ExePaths</maml:para>
         </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
         <dev:type>
-          <maml:name>String[]</maml:name>
+          <maml:name>Object</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -978,6 +1059,13 @@
         <dev:code>Unblock-Program -path "C:\Program Files\PowerShell\7\pwsh.exe"</dev:code>
         <dev:remarks>
           <maml:para>Will create rules to unblock the powershell 7 exe. Since no name was provided the rule will be called `Unblock program pwsh - pwsh.exe`</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>Get-ExePaths "steam" |  Where-Object BaseName -in "Borderlands3","Drawful 2" | Unblock-Program -programName "selectedSteam"</dev:code>
+        <dev:remarks>
+          <maml:para>Will find all the exe's in the steam program folders and filter it down to only the exe's with basenames of Borderlands3 and Drawful 2 then pipe those into the path param and create unblock rules for them with a programName  of 'selectedSteam'. i.e. `Unblock program selectedSteam - Borderlands3.exe`</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

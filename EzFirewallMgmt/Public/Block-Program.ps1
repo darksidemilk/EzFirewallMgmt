@@ -15,6 +15,7 @@ function Block-Program {
     
     .PARAMETER path
     The path or list of paths to exes to Block
+    Can also be passed via pipeline as a FileInfo Object from Get-ChildItem or Get-ExePaths
     
     .PARAMETER programName
     The programName to use in rule names when specifying path(s).
@@ -32,6 +33,13 @@ function Block-Program {
 
     Will create rules to Block the powershell 7 exe. Since no name was provided the rule will be called
     `Block program pwsh - pwsh.exe {inbound|outbound}`
+
+    .EXAMPLE
+    Get-ExePaths "steam" |  Where-Object BaseName -in "Borderlands3","Drawful 2" | Block-Program -programName "selectedSteam"
+
+    Will find all the exe's in the steam program folders and filter it down to only the exe's with basenames of
+    Borderlands3 and Drawful 2 then pipe those into the path param and create block rules for them with a programName 
+    of 'selectedSteam'. i.e. `Block program selectedSteam - Borderlands3.exe`
     
     .LINK
     Block-Program
@@ -51,10 +59,10 @@ function Block-Program {
     #>
     [CmdletBinding(DefaultParameterSetName="byName")]
     param (
-        [Parameter(ParameterSetName="byName")]
+        [Parameter(ParameterSetName="byName",Position=0)]
         [string]$name,
-        [Parameter(ParameterSetName="byPath")]
-        [string[]]$path,
+        [Parameter(ParameterSetName="byPath",ValueFromPipeline=$true)]
+        $path,
         [Parameter(ParameterSetName="byPath")]
         [string]$programName
     )
@@ -62,26 +70,37 @@ function Block-Program {
     begin {
         $paths = New-Object System.Collections.Generic.List[Object];
         $newRules = New-Object System.Collections.Generic.List[object];
-
-        if($name) {
-            $paths.add((Get-ChildItem ${ENV:ProgramFiles(x86)} -Directory | Where-Object name -match $name | Get-ChildItem -Recurse -Filter "*.exe" -File))
-            $paths.add((Get-ChildItem $ENV:ProgramFiles -Directory | Where-Object name -match $name | Get-ChildItem -Recurse -Filter "*.exe" -File))
-            $paths.add((Get-ChildItem $ENV:ProgramData -Directory | Where-Object name -match $name | Get-ChildItem -Recurse -Filter "*.exe" -File))
-            $paths.add((Get-ChildItem $ENV:APPDATA -Directory | Where-Object name -match $name | Get-ChildItem -Recurse -Filter "*.exe" -File))
-            $paths.add((Get-ChildItem $ENV:LocalAppData -Directory | Where-Object name -match $name | Get-ChildItem -Recurse -Filter "*.exe" -File))
-
-        } else {
-            $paths.add($path);
-            if ([string]::IsNullOrEmpty($programName)) {
-                $programName = ((Get-Item $path)[0].BaseName);
-            }
-            $name = $programName;
-        }
     }
     
     process {
+        if($PsCmdlet.ParameterSetName -match "byName") {
+            write-debug "Name parameter set";
+            $paths = Get-ExePaths -name $name;
+        } else {
+            Write-Debug "Path is $($path | out-string)"
+            if ($path.getType().Name -match "string") {
+                $path = Get-Item $path;
+            } 
+            $path | Foreach-Object {
+                if ($path[0].getType().Name -match "FileInfo") {
+                    $paths.add($_);
+                } else {
+                    $paths.add((Get-Item $_));
+                }
+            }
+            
+            if ([string]::IsNullOrEmpty($programName)) {
+                $programName = "$(($path)[0].BaseName)";
+            }
+            $name = $programName;
+        }
+    
+    }
+    
+    end {
+        Write-Debug "paths list is $($paths | out-string)";
         $paths | Foreach-Object {
-            $ProgramRule = Get-ProgramRuleName -type "Block" -program $name -exe $_.Name;
+            $ProgramRule = Get-ProgramRuleName -type "Block" -program $name -exe "$($_.Name)";
             if ($null -eq (Get-NetFirewallRule -Name "$ProgramRule*") ) {
                 $newRules.add((New-NetFirewallRule -DisplayName "$ProgramRule inbound" -Name "$ProgramRule inbound"  -Action "Block" -Profile Any -Direction Inbound -Program "$($_.Fullname)"))
                 $newRules.add((New-NetFirewallRule -DisplayName "$ProgramRule Outbound" -Name "$ProgramRule Outbound"  -Action "Block" -Profile Any -Direction Outbound -Program "$($_.Fullname)"))      
@@ -89,9 +108,6 @@ function Block-Program {
                 "$ProgramRule already exists" | Out-Host;
            }
         }
-    }
-    
-    end {
         if ($null -eq $newRules) {
             "Some or all Rules already existed" | Out-Host
         }

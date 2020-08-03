@@ -13,7 +13,7 @@ Gets the name to use for given program rule
 ## SYNTAX
 
 ```
-Get-ProgramRuleName [[-type] <String>] [[-program] <String[]>] [[-exe] <String>] [<CommonParameters>]
+Get-ProgramRuleName [[-type] <String>] [[-program] <String>] [[-exe] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -56,7 +56,7 @@ Since groups of rules are created by each creating function
 this helps maintain a findable name structure.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
