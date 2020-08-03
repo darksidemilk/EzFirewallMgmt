@@ -1,4 +1,8 @@
 
+# 1.0.10.3
+
+	Made an about help file and a readthedocs index file. Now for sure ready to publish to the gallery
+
 # 1.0.10.2
 
 	Updated readme and release notes with formatting. Added more intro information inf readme. Got module ready for publishing to psgallery completely
