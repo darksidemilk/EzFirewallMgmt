@@ -56,7 +56,7 @@ function Block-Program {
         [Parameter(ParameterSetName="byPath")]
         [string[]]$path,
         [Parameter(ParameterSetName="byPath")]
-        [string]$programName = ((Get-Item $path)[0].BaseName)
+        [string]$programName
     )
     
     begin {
@@ -72,6 +72,9 @@ function Block-Program {
 
         } else {
             $paths.add($path);
+            if ([string]::IsNullOrEmpty($programName)) {
+                $programName = ((Get-Item $path)[0].BaseName);
+            }
             $name = $programName;
         }
     }
