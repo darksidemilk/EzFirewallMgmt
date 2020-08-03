@@ -1,4 +1,12 @@
 
+# 1.0.10.5
+
+	updated build script to specify powershell version too
+
+# 1.0.10.4
+
+	updated build script to include more manifest info
+
 # 1.0.10.3
 
 	Made an about help file and a readthedocs index file. Now for sure ready to publish to the gallery

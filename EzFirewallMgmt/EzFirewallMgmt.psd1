@@ -12,7 +12,7 @@
 RootModule = 'EzFirewallMgmt.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0.10.3'
+ModuleVersion = '1.0.10.5'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -34,7 +34,7 @@ Description = 'Simplified helper functions to block and unblock ports and progra
 Utilizes New-NetFirewallRule and Remove-NetFirewallRule functions and turns them into easier versions'
 
 # Minimum version of the Windows PowerShell engine required by this module
-# PowerShellVersion = ''
+PowerShellVersion = '3.0'
 
 # Name of the Windows PowerShell host required by this module
 # PowerShellHostName = ''
@@ -98,19 +98,27 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = 'Firewall'
+        Tags = 'Firewall','Windows-Firewall','Windows-control-panel','Windows-Defender','Firewall-Management','Admin-Tools','Security','networkSecurity','network'
 
         # A URL to the license for this module.
-        # LicenseUri = ''
+        LicenseUri = 'https://github.com/darksidemilk/EzFirewallMgmt/blob/master/LICENSE'
 
         # A URL to the main website for this project.
-        # ProjectUri = ''
+        ProjectUri = 'https://github.com/darksidemilk/EzFirewallMgmt'
 
         # A URL to an icon representing this module.
         # IconUri = ''
 
         # ReleaseNotes of this module
         ReleaseNotes = '
+# 1.0.10.5
+
+	updated build script to specify powershell version too
+
+# 1.0.10.4
+
+	updated build script to include more manifest info
+
 # 1.0.10.3
 
 	Made an about help file and a readthedocs index file. Now for sure ready to publish to the gallery
@@ -146,7 +154,7 @@ PrivateData = @{
  } # End of PrivateData hashtable
 
 # HelpInfo URI of this module
-# HelpInfoURI = ''
+HelpInfoURI = 'https://ezfirewallmgmt.readthedocs.io/en/latest/'
 
 # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
 # DefaultCommandPrefix = ''

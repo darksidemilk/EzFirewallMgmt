@@ -240,7 +240,20 @@ if($verArgs[-1] -eq 0) {$verArgs[-1] += 1}
 $newVer = New-Object version -ArgumentList $verArgs;
 $releaseNotes = "`n# $newVer`n`n`t$releaseNote`n$($cur.ReleaseNotes)"
 
-Update-ModuleManifest -Path $manifest -ReleaseNotes $releaseNotes -ModuleVersion $newVer -RootModule "$moduleName.psm1" -FunctionsToExport $PublicFunctions.BaseName
+$manifestBlob = @{
+	path = $manifest;
+	ReleaseNotes = $releaseNotes
+	ModuleVersion = $newVer
+	RootModule = "$moduleName.psm1"
+	FunctionsToExport = $PublicFunctions.BaseName
+	LicenseUri = "https://github.com/darksidemilk/EzFirewallMgmt/blob/master/LICENSE"
+	ProjectUri = "https://github.com/darksidemilk/EzFirewallMgmt"
+	HelpInfoUri = "https://EzFirewallMgmt.readthedocs.io/en/latest/"
+	Tags = "Firewall","Windows-Firewall","Windows-control-panel","Windows-Defender","Firewall-Management","Admin-Tools","Security","networkSecurity","network"
+	PowershellVersion = '3.0'
+}
+
+Update-ModuleManifest @manifestBlob
 
 
 Copy-Item $manifest "$buildPth\$moduleName.psd1";
