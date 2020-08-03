@@ -6,19 +6,19 @@
       <command:verb>Block</command:verb>
       <command:noun>Port</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Blocks a given port or list of ports</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>By default will create blocking rules for both tcp and udp versions of the port list given. Also creates blocks for both inbound and outbound.  Returns a list of the rules created</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Block-Port</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>port</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill port Description }}</maml:para>
+            <maml:para>The port or list of ports/port ranges to block</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -27,16 +27,11 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>protocol</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill protocol Description }}</maml:para>
+            <maml:para>Can be TCP, UDP, or BOTH defaults to Both</maml:para>
           </maml:Description>
-          <command:parameterValueGroup>
-            <command:parameterValue required="false" command:variableLength="false">TCP</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">UDP</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">BOTH</command:parameterValue>
-          </command:parameterValueGroup>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -47,10 +42,10 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>port</maml:name>
         <maml:Description>
-          <maml:para>{{ Fill port Description }}</maml:para>
+          <maml:para>The port or list of ports/port ranges to block</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -59,10 +54,10 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>protocol</maml:name>
         <maml:Description>
-          <maml:para>{{ Fill protocol Description }}</maml:para>
+          <maml:para>Can be TCP, UDP, or BOTH defaults to Both</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -72,26 +67,8 @@
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
     </command:parameters>
-    <command:inputTypes>
-      <command:inputType>
-        <dev:type>
-          <maml:name>None</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:inputType>
-    </command:inputTypes>
-    <command:returnValues>
-      <command:returnValue>
-        <dev:type>
-          <maml:name>System.Object</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:returnValue>
-    </command:returnValues>
+    <command:inputTypes />
+    <command:returnValues />
     <maml:alertSet>
       <maml:alert>
         <maml:para></maml:para>
@@ -99,17 +76,33 @@
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>Block-Port -port "1433-1434"</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Will block tcp and udp ports 1433 through 1434 which would block incoming and outgoing mircosoft sql servers from being accessed over the network or even being browsed if they're using default ports The rule names would be `Block port 1433-1434 TCP inbound` `Block port 1433-1434 TCP outbound` `Block port 1433-1434 UDP inbound` `Block port 1433-1434 UDP outbound`</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>Block-Port</maml:linkText>
         <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Block-Port</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Unblock-Port</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Unblock-Port</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-PortRuleName</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Get-PortRuleName</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Remove-PortRule</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Remove-PortRule</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>New-NetfirewallRule</maml:linkText>
+        <maml:uri>https://docs.microsoft.com/en-us/powershell/module/netsecurity/New-NetfirewallRule</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -119,11 +112,11 @@
       <command:verb>Block</command:verb>
       <command:noun>Program</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Blocks all exes found under parent folders matching a given name or Blocks all specific exes at given paths</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>When using -name will search programFiles/programfiles x86, current users local/roaming appdata, and the program data folder for folders that match the given name (using -match so doesn't need to be exact). Then finds all the exes in those paths and loops through that list of exes creating a Block rule for each one both inbound and outbound. If you instead specifiy a path or list of paths it will create Block rules only for the specified rules</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -131,7 +124,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>name</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill name Description }}</maml:para>
+            <maml:para>The name of the program folder to match, will also be used in naming the rules</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -146,7 +139,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>path</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill path Description }}</maml:para>
+            <maml:para>The path or list of paths to exes to Block</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -155,13 +148,25 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>programName</maml:name>
+          <maml:Description>
+            <maml:para>The programName to use in rule names when specifying path(s). Will default to the basename (name without extension) of the first exe in the path list parameter</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>((Get-Item $path)[0].BaseName)</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>name</maml:name>
         <maml:Description>
-          <maml:para>{{ Fill name Description }}</maml:para>
+          <maml:para>The name of the program folder to match, will also be used in naming the rules</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -173,7 +178,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>path</maml:name>
         <maml:Description>
-          <maml:para>{{ Fill path Description }}</maml:para>
+          <maml:para>The path or list of paths to exes to Block</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -182,27 +187,21 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>programName</maml:name>
+        <maml:Description>
+          <maml:para>The programName to use in rule names when specifying path(s). Will default to the basename (name without extension) of the first exe in the path list parameter</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>((Get-Item $path)[0].BaseName)</dev:defaultValue>
+      </command:parameter>
     </command:parameters>
-    <command:inputTypes>
-      <command:inputType>
-        <dev:type>
-          <maml:name>None</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:inputType>
-    </command:inputTypes>
-    <command:returnValues>
-      <command:returnValue>
-        <dev:type>
-          <maml:name>System.Object</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:returnValue>
-    </command:returnValues>
+    <command:inputTypes />
+    <command:returnValues />
     <maml:alertSet>
       <maml:alert>
         <maml:para></maml:para>
@@ -210,17 +209,40 @@
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>Block-Program -name "Steam"</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>This will find all exe's in the steam program folders and Block them. This will also include all your downloaded steam game exes. A quick and easy way to make sure your multiplayer games are Blocked (because maybe you grounded your kid from video games) Each rule would be named as `Block program steam - exename.exe {inbound|outbound}`</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>Block-Program -path "C:\Program Files\PowerShell\7\pwsh.exe"</dev:code>
+        <dev:remarks>
+          <maml:para>Will create rules to Block the powershell 7 exe. Since no name was provided the rule will be called `Block program pwsh - pwsh.exe {inbound|outbound}`</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>Block-Program</maml:linkText>
         <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Block-Program</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Unblock-Program</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Unblock-Program</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-ProgramRuleName</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Get-ProgramRuleName</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Remove-ProgramRule</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Remove-ProgramRule</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>New-NetfirewallRule</maml:linkText>
+        <maml:uri>https://docs.microsoft.com/en-us/powershell/module/netsecurity/New-NetfirewallRule</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -230,24 +252,20 @@
       <command:verb>Get</command:verb>
       <command:noun>PortRuleName</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Gets the name to use for given port rule</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>Takes the parameters to build a simple string for the base name of a rule. This is used when creating new rules and when removing them. You can also use this  with `Get-NetFirewallRule -name` to get matching firewall rules Creates rule name strings with the structure `{$type} port {$port} {$protocol}`</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-PortRuleName</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>type</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill type Description }}</maml:para>
+            <maml:para>Can be Block or Unblock</maml:para>
           </maml:Description>
-          <command:parameterValueGroup>
-            <command:parameterValue required="false" command:variableLength="false">Block</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">Unblock</command:parameterValue>
-          </command:parameterValueGroup>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -255,10 +273,10 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>port</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill port Description }}</maml:para>
+            <maml:para>The port or ports the rule controls</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -267,15 +285,11 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>protocol</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill protocol Description }}</maml:para>
+            <maml:para>Can be TCP or UDP</maml:para>
           </maml:Description>
-          <command:parameterValueGroup>
-            <command:parameterValue required="false" command:variableLength="false">TCP</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">UDP</command:parameterValue>
-          </command:parameterValueGroup>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -287,21 +301,9 @@
     </command:syntax>
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
-        <maml:name>port</maml:name>
+        <maml:name>type</maml:name>
         <maml:Description>
-          <maml:para>{{ Fill port Description }}</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
-        <dev:type>
-          <maml:name>String[]</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
-        <maml:name>protocol</maml:name>
-        <maml:Description>
-          <maml:para>{{ Fill protocol Description }}</maml:para>
+          <maml:para>Can be Block or Unblock</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -310,10 +312,22 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
-        <maml:name>type</maml:name>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>port</maml:name>
         <maml:Description>
-          <maml:para>{{ Fill type Description }}</maml:para>
+          <maml:para>The port or ports the rule controls</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <maml:name>protocol</maml:name>
+        <maml:Description>
+          <maml:para>Can be TCP or UDP</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -323,44 +337,38 @@
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
     </command:parameters>
-    <command:inputTypes>
-      <command:inputType>
-        <dev:type>
-          <maml:name>None</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:inputType>
-    </command:inputTypes>
-    <command:returnValues>
-      <command:returnValue>
-        <dev:type>
-          <maml:name>System.Object</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:returnValue>
-    </command:returnValues>
+    <command:inputTypes />
+    <command:returnValues />
     <maml:alertSet>
       <maml:alert>
-        <maml:para></maml:para>
+        <maml:para>Append "*" to the return string to get or remove all matching rules as when they are created inbound or outbound is appended</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>Get-PortRuleName -type "Unblock" -port "135","1433-1434" -Protocol TCP</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Will create a string of "Unblock port 135,1433-1434 TCP".</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>Get-PortRuleName</maml:linkText>
         <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Get-PortRuleName</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Remove-PortRule</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Remove-PortRule</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Block-Port</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Block-Port</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Unblock-Port</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Unblock-Port</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -370,24 +378,20 @@
       <command:verb>Get</command:verb>
       <command:noun>ProgramRuleName</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Gets the name to use for given program rule</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>Takes the parameters to build a simple string for the base name of a rule. This is used when creating new rules and when removing them.  You can also use this with `Get-NetFirewallRule -name` to get matching firewall rules. Creates rule name strings with the structure `{$type} program {$program} - {$exename}`</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-ProgramRuleName</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>type</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill type Description }}</maml:para>
+            <maml:para>Can be Block or Unblock</maml:para>
           </maml:Description>
-          <command:parameterValueGroup>
-            <command:parameterValue required="false" command:variableLength="false">Block</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">Unblock</command:parameterValue>
-          </command:parameterValueGroup>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -395,10 +399,10 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>program</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill program Description }}</maml:para>
+            <maml:para>The program name the rule controls. Is created from the name/programName parameter in Unblock/Block-Program. Since groups of rules are created by each creating function this helps maintain a findable name structure.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -407,25 +411,25 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>exe</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill exe Description }}</maml:para>
+            <maml:para>The name of the actual exe being controlled by the rule. Defaults to * so if you're running this outside of the functions creating rules</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
+          <dev:defaultValue>*</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
-        <maml:name>exe</maml:name>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>type</maml:name>
         <maml:Description>
-          <maml:para>{{ Fill exe Description }}</maml:para>
+          <maml:para>Can be Block or Unblock</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -434,10 +438,10 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>program</maml:name>
         <maml:Description>
-          <maml:para>{{ Fill program Description }}</maml:para>
+          <maml:para>The program name the rule controls. Is created from the name/programName parameter in Unblock/Block-Program. Since groups of rules are created by each creating function this helps maintain a findable name structure.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -446,57 +450,51 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
-        <maml:name>type</maml:name>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <maml:name>exe</maml:name>
         <maml:Description>
-          <maml:para>{{ Fill type Description }}</maml:para>
+          <maml:para>The name of the actual exe being controlled by the rule. Defaults to * so if you're running this outside of the functions creating rules</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
+        <dev:defaultValue>*</dev:defaultValue>
       </command:parameter>
     </command:parameters>
-    <command:inputTypes>
-      <command:inputType>
-        <dev:type>
-          <maml:name>None</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:inputType>
-    </command:inputTypes>
-    <command:returnValues>
-      <command:returnValue>
-        <dev:type>
-          <maml:name>System.Object</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:returnValue>
-    </command:returnValues>
+    <command:inputTypes />
+    <command:returnValues />
     <maml:alertSet>
       <maml:alert>
-        <maml:para></maml:para>
+        <maml:para>Append "*" to the return string to get or remove all matching rules as when they are created inbound or outbound is appended</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>Get-ProgramRuleName -type "Unblock" -program "steam" -exe "steam.exe"</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Will create a string of "Unblock program steam - steam.exe"</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>Get-ProgramRuleName</maml:linkText>
         <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Get-ProgramRuleName</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Remove-ProgramRule</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Remove-ProgramRule</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Block-Program</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Block-Program</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Unblock-Program</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Unblock-Program</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -506,24 +504,20 @@
       <command:verb>Remove</command:verb>
       <command:noun>PortRule</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Removes a port firewall rule</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>Creates a search string with given parameters using Get-PortRuleName and appends a wildcard '*' Then uses Remove-NetFirewallRule to remove all matching firewall rules</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Remove-PortRule</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>type</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill type Description }}</maml:para>
+            <maml:para>Can be Unblock or Block</maml:para>
           </maml:Description>
-          <command:parameterValueGroup>
-            <command:parameterValue required="false" command:variableLength="false">Block</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">Unblock</command:parameterValue>
-          </command:parameterValueGroup>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -531,10 +525,10 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>port</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill port Description }}</maml:para>
+            <maml:para>The port or list of ports controlled by the rule</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -543,16 +537,11 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>protocol</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill protocol Description }}</maml:para>
+            <maml:para>Can be TCP, UDP, or BOTH, defaults to BOTH</maml:para>
           </maml:Description>
-          <command:parameterValueGroup>
-            <command:parameterValue required="false" command:variableLength="false">TCP</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">UDP</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">BOTH</command:parameterValue>
-          </command:parameterValueGroup>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -563,22 +552,10 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
-        <maml:name>port</maml:name>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>type</maml:name>
         <maml:Description>
-          <maml:para>{{ Fill port Description }}</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
-        <dev:type>
-          <maml:name>String[]</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
-        <maml:name>protocol</maml:name>
-        <maml:Description>
-          <maml:para>{{ Fill protocol Description }}</maml:para>
+          <maml:para>Can be Unblock or Block</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -587,10 +564,22 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
-        <maml:name>type</maml:name>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>port</maml:name>
         <maml:Description>
-          <maml:para>{{ Fill type Description }}</maml:para>
+          <maml:para>The port or list of ports controlled by the rule</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <maml:name>protocol</maml:name>
+        <maml:Description>
+          <maml:para>Can be TCP, UDP, or BOTH, defaults to BOTH</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -600,26 +589,8 @@
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
     </command:parameters>
-    <command:inputTypes>
-      <command:inputType>
-        <dev:type>
-          <maml:name>None</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:inputType>
-    </command:inputTypes>
-    <command:returnValues>
-      <command:returnValue>
-        <dev:type>
-          <maml:name>System.Object</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:returnValue>
-    </command:returnValues>
+    <command:inputTypes />
+    <command:returnValues />
     <maml:alertSet>
       <maml:alert>
         <maml:para></maml:para>
@@ -627,17 +598,33 @@
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>Remove-PortRule -type "Block" -port "135","1433-1434"</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Will remove all the TCP and UDP port rules that match the naming "Block port 135,1433-1434*" Will run it against "Block port 135,1433-1434 TCP " and "Block port 135,1433-1434 UDP "</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>Remove-PortRule</maml:linkText>
         <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Remove-PortRule</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-PortRuleName</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Get-PortRuleName</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Block-Port</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Block-Port</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Unblock-Port</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Unblock-Port</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Remove-NetFirewallRule</maml:linkText>
+        <maml:uri>https://docs.microsoft.com/en-us/powershell/module/netsecurity/Remove-NetFirewallRule</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -647,35 +634,19 @@
       <command:verb>Remove</command:verb>
       <command:noun>ProgramRule</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Removes a program firewall rule</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>Creates a search string with given parameters using Get-ProgramRuleName and appends a wildcard '*' Then uses Remove-NetFirewallRule to remove all matching firewall rules</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Remove-ProgramRule</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>type</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill type Description }}</maml:para>
-          </maml:Description>
-          <command:parameterValueGroup>
-            <command:parameterValue required="false" command:variableLength="false">Block</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">Unblock</command:parameterValue>
-          </command:parameterValueGroup>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
-          <maml:name>program</maml:name>
-          <maml:Description>
-            <maml:para>{{ Fill program Description }}</maml:para>
+            <maml:para>Can be Unblock or Block</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -685,9 +656,9 @@
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
-          <maml:name>exe</maml:name>
+          <maml:name>program</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill exe Description }}</maml:para>
+            <maml:para>The program name used to create the rule</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -696,37 +667,25 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+          <maml:name>exe</maml:name>
+          <maml:Description>
+            <maml:para>The specific exe filename controlled by the rule. Defaults to a wildcard '*' To get all exe's created in a rule created by name</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>*</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
-        <maml:name>exe</maml:name>
-        <maml:Description>
-          <maml:para>{{ Fill exe Description }}</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
-        <maml:name>program</maml:name>
-        <maml:Description>
-          <maml:para>{{ Fill program Description }}</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>type</maml:name>
         <maml:Description>
-          <maml:para>{{ Fill type Description }}</maml:para>
+          <maml:para>Can be Unblock or Block</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -735,27 +694,33 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>program</maml:name>
+        <maml:Description>
+          <maml:para>The program name used to create the rule</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <maml:name>exe</maml:name>
+        <maml:Description>
+          <maml:para>The specific exe filename controlled by the rule. Defaults to a wildcard '*' To get all exe's created in a rule created by name</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>*</dev:defaultValue>
+      </command:parameter>
     </command:parameters>
-    <command:inputTypes>
-      <command:inputType>
-        <dev:type>
-          <maml:name>None</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:inputType>
-    </command:inputTypes>
-    <command:returnValues>
-      <command:returnValue>
-        <dev:type>
-          <maml:name>System.Object</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:returnValue>
-    </command:returnValues>
+    <command:inputTypes />
+    <command:returnValues />
     <maml:alertSet>
       <maml:alert>
         <maml:para></maml:para>
@@ -763,17 +728,33 @@
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>Remove-Program -type "Block" -program "steam"</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Will remove all the block rules matching "Block program steam - *".  Because maybe you ungrounded your kid from video games.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>Remove-ProgramRule</maml:linkText>
         <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Remove-ProgramRule</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-ProgramRuleName</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Get-ProgramRuleName</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Block-Program</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Block-Program</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Unblock-Program</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Unblock-Program</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Remove-NetFirewallRule</maml:linkText>
+        <maml:uri>https://docs.microsoft.com/en-us/powershell/module/netsecurity/Remove-NetFirewallRule</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -783,19 +764,19 @@
       <command:verb>Unblock</command:verb>
       <command:noun>Port</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>UnBlocks a given port or list of ports</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>By default will create Unblocking rules for both tcp and udp versions of the port list given. Also creates Unblocks for both inbound and outbound.  Returns a list of the rules created</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Unblock-Port</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>port</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill port Description }}</maml:para>
+            <maml:para>The port or list of ports/port ranges to Unblock</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -804,16 +785,11 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>protocol</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill protocol Description }}</maml:para>
+            <maml:para>Can be TCP, UDP, or BOTH defaults to Both</maml:para>
           </maml:Description>
-          <command:parameterValueGroup>
-            <command:parameterValue required="false" command:variableLength="false">TCP</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">UDP</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">BOTH</command:parameterValue>
-          </command:parameterValueGroup>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -824,10 +800,10 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>port</maml:name>
         <maml:Description>
-          <maml:para>{{ Fill port Description }}</maml:para>
+          <maml:para>The port or list of ports/port ranges to Unblock</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -836,10 +812,10 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>protocol</maml:name>
         <maml:Description>
-          <maml:para>{{ Fill protocol Description }}</maml:para>
+          <maml:para>Can be TCP, UDP, or BOTH defaults to Both</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -849,26 +825,8 @@
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
     </command:parameters>
-    <command:inputTypes>
-      <command:inputType>
-        <dev:type>
-          <maml:name>None</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:inputType>
-    </command:inputTypes>
-    <command:returnValues>
-      <command:returnValue>
-        <dev:type>
-          <maml:name>System.Object</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:returnValue>
-    </command:returnValues>
+    <command:inputTypes />
+    <command:returnValues />
     <maml:alertSet>
       <maml:alert>
         <maml:para></maml:para>
@@ -876,17 +834,33 @@
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>UnBlock-Port -port "1433-1434"</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Will Unblock tcp and udp ports 1433 through 1434 which would Unblock incoming and outgoing mircosoft sql servers from being accessed over the network or even being browsed if they're using default ports The rule names would be `Unblock port 1433-1434 TCP inbound` `Unblock port 1433-1434 TCP outbound` `Unblock port 1433-1434 UDP inbound` `Unblock port 1433-1434 UDP outbound`</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>Unblock-Port</maml:linkText>
         <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Unblock-Port</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Block-Port</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Block-Port</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-PortRuleName</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Get-PortRuleName</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Remove-PortRule</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Remove-PortRule</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>New-NetfirewallRule</maml:linkText>
+        <maml:uri>https://docs.microsoft.com/en-us/powershell/module/netsecurity/New-NetfirewallRule</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -896,11 +870,11 @@
       <command:verb>Unblock</command:verb>
       <command:noun>Program</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Unblocks all exes found under parent folders matching a given name or unblocks all specific exes at given paths</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>When using -name will search programFiles/programfiles x86, current users local/roaming appdata, and the program data folder for folders that match the given name (using -match so doesn't need to be exact). Then finds all the exes in those paths and loops through that list of exes creating a unblock rule for each one both inbound and outbound. If you instead specifiy a path or list of paths it will create unblock rules only for the specified rules</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -908,7 +882,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>name</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill name Description }}</maml:para>
+            <maml:para>The name of the program folder to match, will also be used in naming the rules</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -923,7 +897,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>path</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill path Description }}</maml:para>
+            <maml:para>The path or list of paths to exes to unblock</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -932,13 +906,25 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>programName</maml:name>
+          <maml:Description>
+            <maml:para>The programName to use in rule names when specifying path(s). Will default to the basename (name without extension) of the first exe in the path list parameter</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>((Get-Item $path)[0].BaseName)</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>name</maml:name>
         <maml:Description>
-          <maml:para>{{ Fill name Description }}</maml:para>
+          <maml:para>The name of the program folder to match, will also be used in naming the rules</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -950,7 +936,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>path</maml:name>
         <maml:Description>
-          <maml:para>{{ Fill path Description }}</maml:para>
+          <maml:para>The path or list of paths to exes to unblock</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -959,27 +945,21 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>programName</maml:name>
+        <maml:Description>
+          <maml:para>The programName to use in rule names when specifying path(s). Will default to the basename (name without extension) of the first exe in the path list parameter</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>((Get-Item $path)[0].BaseName)</dev:defaultValue>
+      </command:parameter>
     </command:parameters>
-    <command:inputTypes>
-      <command:inputType>
-        <dev:type>
-          <maml:name>None</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:inputType>
-    </command:inputTypes>
-    <command:returnValues>
-      <command:returnValue>
-        <dev:type>
-          <maml:name>System.Object</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:returnValue>
-    </command:returnValues>
+    <command:inputTypes />
+    <command:returnValues />
     <maml:alertSet>
       <maml:alert>
         <maml:para></maml:para>
@@ -987,17 +967,40 @@
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>Unblock-Program -name "Steam"</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>This will find all exe's in the steam program folders and unblock them. This will also include all your downloaded steam game exes. A quick and easy way to make sure your multiplayer games are unblocked Each rule would be named as `Unblock program steam - exename.exe`</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>Unblock-Program -path "C:\Program Files\PowerShell\7\pwsh.exe"</dev:code>
+        <dev:remarks>
+          <maml:para>Will create rules to unblock the powershell 7 exe. Since no name was provided the rule will be called `Unblock program pwsh - pwsh.exe`</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>Unblock-Program</maml:linkText>
         <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Unblock-Program</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Block-Program</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Block-Program</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-ProgramRuleName</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Get-ProgramRuleName</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Remove-ProgramRule</maml:linkText>
+        <maml:uri>https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Remove-ProgramRule</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>New-NetfirewallRule</maml:linkText>
+        <maml:uri>https://docs.microsoft.com/en-us/powershell/module/netsecurity/New-NetfirewallRule</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Unblock-Port
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+UnBlocks a given port or list of ports
 
 ## SYNTAX
 
@@ -17,21 +17,25 @@ Unblock-Port [[-port] <String[]>] [[-protocol] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+By default will create Unblocking rules for both tcp and udp versions of the port list given.
+Also creates Unblocks for both inbound and outbound. 
+Returns a list of the rules created
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
+```
+UnBlock-Port -port "1433-1434"
 ```
 
-{{ Add example description here }}
+Will Unblock tcp and udp ports 1433 through 1434 which would Unblock incoming and outgoing mircosoft sql servers
+from being accessed over the network or even being browsed if they're using default ports
+The rule names would be \`Unblock port 1433-1434 TCP inbound\` \`Unblock port 1433-1434 TCP outbound\` \`Unblock port 1433-1434 UDP inbound\` \`Unblock port 1433-1434 UDP outbound\`
 
 ## PARAMETERS
 
 ### -port
-{{ Fill port Description }}
+The port or list of ports/port ranges to Unblock
 
 ```yaml
 Type: String[]
@@ -39,23 +43,22 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 0
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -protocol
-{{ Fill protocol Description }}
+Can be TCP, UDP, or BOTH defaults to Both
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
-Accepted values: TCP, UDP, BOTH
 
 Required: False
-Position: 1
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -66,11 +69,19 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
 
 ## RELATED LINKS
+
+[Unblock-Port](https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Unblock-Port)
+
+[Block-Port](https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Block-Port)
+
+[Get-PortRuleName](https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Get-PortRuleName)
+
+[Remove-PortRule](https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Remove-PortRule)
+
+[New-NetfirewallRule](https://docs.microsoft.com/en-us/powershell/module/netsecurity/New-NetfirewallRule)
+

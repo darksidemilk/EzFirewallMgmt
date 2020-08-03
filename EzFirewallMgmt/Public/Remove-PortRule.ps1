@@ -1,4 +1,43 @@
 function Remove-PortRule {
+    <#
+    .SYNOPSIS
+    Removes a port firewall rule
+    
+    .DESCRIPTION
+    Creates a search string with given parameters using Get-PortRuleName and appends a wildcard '*'
+    Then uses Remove-NetFirewallRule to remove all matching firewall rules
+    
+    .PARAMETER type
+    Can be Unblock or Block
+    
+    .PARAMETER port
+    The port or list of ports controlled by the rule
+    
+    .PARAMETER protocol
+    Can be TCP, UDP, or BOTH, defaults to BOTH
+    
+    .EXAMPLE
+    Remove-PortRule -type "Block" -port "135","1433-1434"
+
+    Will remove all the TCP and UDP port rules that match the naming "Block port 135,1433-1434*"
+    Will run it against "Block port 135,1433-1434 TCP*" and "Block port 135,1433-1434 UDP*"
+    
+    .LINK
+    Remove-PortRule
+
+    .LINK
+    Get-PortRuleName
+
+    .LINK
+    Block-Port
+    
+    .LINK
+    Unblock-Port
+
+    .LINK
+    Remove-NetFirewallRule
+
+    #>
     [CmdletBinding()]
     param (
         [Parameter(Mandatory=$true)]
@@ -11,7 +50,7 @@ function Remove-PortRule {
     )
     
     begin {
-        if ($null -eq $protocol) {
+        if ([string]::IsNullOrEmpty($protocol)) {
             $protocol = "BOTH";
         }
         $removedRules = New-Object System.Collections.Generic.List[object];

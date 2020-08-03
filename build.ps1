@@ -117,9 +117,22 @@ nav:
 		$link = "https://EzFirewallMgmt.readthedocs.io/en/latest/commands/$basename";
 		#insert in onlineVersion at top
 		$content = Get-Content $file;
-		$onlineStr = ($content | Select-String "online version: *" -Raw).tostring();
+		$onlineStr = ($content | Select-String "online version:*").tostring();
 		$newOnlineStr = "$onlineStr $link";
 		$content = $content.replace($onlineStr,$newOnlineStr);
+		$links = ($content | Select-String -Pattern "\[*\]\(\)");
+		$links | ForEach-Object {
+			$str = $_.toString();
+			if ( ($str.split("`[").split("`]").split("-")[2]) -match "NetFirewallRule" ) {
+				$baseLink = "https://docs.microsoft.com/en-us/powershell/module/netsecurity"
+			} else {
+				$baseLink = "https://EzFirewallMgmt.readthedocs.io/en/latest/commands"
+			}
+			$linkName = $str.split("`[").split("`]")[1];
+			$linkUri = "$baseLink/$linkName";
+			$newStr = "[$linkName]($linkUri)"
+			$content = $content.Replace($str,$newStr);
+		}
 		Set-Content -Path $file -Value $content;
 		
 		#Update commands index
@@ -234,3 +247,21 @@ Copy-Item $manifest "$buildPth\$moduleName.psd1";
 
 #create release notes markdown
 Set-Content -Path "$docsPth\ReleaseNotes.md" -value ((Test-ModuleManifest $manifest).ReleaseNotes)
+
+#Sign the built module file if cert exists
+$cert = (Get-ChildItem cert:\CurrentUser\My -CodeSigningCert)
+
+if ($null -ne $cert) {
+	if ($null -ne $cert.count) {
+		if ($cert.count -gt 1) {
+			$i = 1;
+			$cert | ForEach-Object {
+				"Cert $i : $($_.Subject)" | Out-Host;
+				$i++;
+			}
+			$selection = Read-Host -Prompt "Multiple code signing certs exist, Which cert would you like to use? Please input cert number";
+			$cert = $cert[($selection-1)];
+		}
+	}
+	Set-AuthenticodeSignature $moduleFile -Certificate $cert -IncludeChain All -Force;
+}

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-ProgramRule
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Removes a program firewall rule
 
 ## SYNTAX
 
@@ -17,21 +17,38 @@ Remove-ProgramRule [-type] <String> [[-program] <String>] [[-exe] <String>] [<Co
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Creates a search string with given parameters using Get-ProgramRuleName and appends a wildcard '*'
+Then uses Remove-NetFirewallRule to remove all matching firewall rules
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
+```
+Remove-Program -type "Block" -program "steam"
 ```
 
-{{ Add example description here }}
+Will remove all the block rules matching "Block program steam - *". 
+Because maybe you ungrounded your kid from video games.
 
 ## PARAMETERS
 
-### -exe
-{{ Fill exe Description }}
+### -type
+Can be Unblock or Block
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -program
+The program name used to create the rule
 
 ```yaml
 Type: String
@@ -45,8 +62,10 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -program
-{{ Fill program Description }}
+### -exe
+The specific exe filename controlled by the rule.
+Defaults to a wildcard '*'
+To get all exe's created in a rule created by name
 
 ```yaml
 Type: String
@@ -54,24 +73,8 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -type
-{{ Fill type Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-Accepted values: Block, Unblock
-
-Required: True
-Position: 0
-Default value: None
+Position: 3
+Default value: *
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -81,11 +84,19 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
 
 ## RELATED LINKS
+
+[Remove-ProgramRule](https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Remove-ProgramRule)
+
+[Get-ProgramRuleName](https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Get-ProgramRuleName)
+
+[Block-Program](https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Block-Program)
+
+[Unblock-Program](https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Unblock-Program)
+
+[Remove-NetFirewallRule](https://docs.microsoft.com/en-us/powershell/module/netsecurity/Remove-NetFirewallRule)
+

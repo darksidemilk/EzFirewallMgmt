@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-PortRuleName
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Gets the name to use for given port rule
 
 ## SYNTAX
 
@@ -17,24 +17,28 @@ Get-PortRuleName [[-type] <String>] [[-port] <String[]>] [[-protocol] <String>] 
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Takes the parameters to build a simple string for the base name of a rule.
+This is used when creating new rules and when removing them.
+You can also use this 
+with \`Get-NetFirewallRule -name\` to get matching firewall rules
+Creates rule name strings with the structure \`{$type} port {$port} {$protocol}\`
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
+```
+Get-PortRuleName -type "Unblock" -port "135","1433-1434" -Protocol TCP
 ```
 
-{{ Add example description here }}
+Will create a string of "Unblock port 135,1433-1434 TCP".
 
 ## PARAMETERS
 
-### -port
-{{ Fill port Description }}
+### -type
+Can be Block or Unblock
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -45,14 +49,13 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -protocol
-{{ Fill protocol Description }}
+### -port
+The port or ports the rule controls
 
 ```yaml
-Type: String
+Type: String[]
 Parameter Sets: (All)
 Aliases:
-Accepted values: TCP, UDP
 
 Required: False
 Position: 2
@@ -61,17 +64,16 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -type
-{{ Fill type Description }}
+### -protocol
+Can be TCP or UDP
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
-Accepted values: Block, Unblock
 
 Required: False
-Position: 0
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -82,11 +84,18 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
+Append "*" to the return string to get or remove all matching rules as when they are created inbound or outbound is appended
 
 ## RELATED LINKS
+
+[Get-PortRuleName](https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Get-PortRuleName)
+
+[Remove-PortRule](https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Remove-PortRule)
+
+[Block-Port](https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Block-Port)
+
+[Unblock-Port](https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Unblock-Port)
+

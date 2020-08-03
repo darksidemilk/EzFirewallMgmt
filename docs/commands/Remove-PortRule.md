@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-PortRule
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Removes a port firewall rule
 
 ## SYNTAX
 
@@ -17,42 +17,43 @@ Remove-PortRule [-type] <String> [[-port] <String[]>] [[-protocol] <String>] [<C
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Creates a search string with given parameters using Get-PortRuleName and appends a wildcard '*'
+Then uses Remove-NetFirewallRule to remove all matching firewall rules
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
+```
+Remove-PortRule -type "Block" -port "135","1433-1434"
 ```
 
-{{ Add example description here }}
+Will remove all the TCP and UDP port rules that match the naming "Block port 135,1433-1434*"
+Will run it against "Block port 135,1433-1434 TCP*" and "Block port 135,1433-1434 UDP*"
 
 ## PARAMETERS
 
-### -port
-{{ Fill port Description }}
+### -type
+Can be Unblock or Block
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -protocol
-{{ Fill protocol Description }}
+### -port
+The port or list of ports controlled by the rule
 
 ```yaml
-Type: String
+Type: String[]
 Parameter Sets: (All)
 Aliases:
-Accepted values: TCP, UDP, BOTH
 
 Required: False
 Position: 2
@@ -61,17 +62,16 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -type
-{{ Fill type Description }}
+### -protocol
+Can be TCP, UDP, or BOTH, defaults to BOTH
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
-Accepted values: Block, Unblock
 
-Required: True
-Position: 0
+Required: False
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -82,11 +82,19 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
 
 ## RELATED LINKS
+
+[Remove-PortRule](https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Remove-PortRule)
+
+[Get-PortRuleName](https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Get-PortRuleName)
+
+[Block-Port](https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Block-Port)
+
+[Unblock-Port](https://EzFirewallMgmt.readthedocs.io/en/latest/commands/Unblock-Port)
+
+[Remove-NetFirewallRule](https://docs.microsoft.com/en-us/powershell/module/netsecurity/Remove-NetFirewallRule)
+
