@@ -60,12 +60,14 @@ function Remove-PortRule {
         if ($protocol -eq "BOTH" -OR $protocol -eq "TCP") {
             $TCPRule = Get-PortRuleName -type "Unblock" -port $port -protocol "TCP";
             "Removing $TCPRule" | Out-Host;
-            $removedRules.add((Remove-NetFirewallRule -Name "$TCPRule*" -EA 0))
+            $removedRules.add((Get-NetFirewallRule -Name "$TCPRule*" -EA 0))
+            Get-NetFirewallRule -Name "$TCPRule*" | Remove-NetFirewallRule -EA 0;
             # $removedRules.add((Remove-NetFirewallRule -Name $TCPRule -EA 0))
         } 
         if ($protocol -eq "BOTH" -OR $protocol -eq "UDP") {
             $UDPRule = Get-PortRuleName -type "Unblock" -port $port -protocol "UDP";
-            $removedRules.add((Remove-NetFirewallRule -Name "$UDPRule*" -EA 0))
+            $removedRules.add((Get-NetFirewallRule -Name "$UDPRule*" -EA 0))
+            Get-NetFirewallRule -Name "$UDPRule*" | Remove-NetFirewallRule -EA 0;
             # $removedRules.add((Remove-NetFirewallRule -Name $UDPRule -EA 0))
         }
     }

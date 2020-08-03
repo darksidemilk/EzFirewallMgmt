@@ -49,12 +49,14 @@ function Remove-ProgramRule {
     )
     
     begin {
-        $removedRules = New-Object System.Collections.Generic.List[object];
+        # $removedRules = New-Object System.Collections.Generic.List[object];
     }
     
     process {
         $programRule = Get-ProgramRuleName -type $type -program $program -exe $exe;
-        $removedRules.add((Remove-NetFirewallRule -Name "$ProgramRule" -EA 0))
+
+        $removedRules = Get-NetFirewallRule -Name "$ProgramRule" -EA 0;
+        Get-NetFirewallRule -Name "$ProgramRule" | Remove-NetFirewallRule -EA 0;
     }
     
     end {

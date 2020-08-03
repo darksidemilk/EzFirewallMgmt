@@ -69,7 +69,7 @@ function Unblock-Program {
     
     begin {
         $paths = New-Object System.Collections.Generic.List[Object];
-        $newRules = New-Object System.Collections.Generic.List[object];
+        # $newRules = New-Object System.Collections.Generic.List[object];
     }
     
 
@@ -96,21 +96,7 @@ function Unblock-Program {
     }
     
     end {
-        Write-Debug "paths list is $($paths | out-string)";
-        $paths | Foreach-Object {
-            $ProgramRule = Get-ProgramRuleName -type "Unblock" -program $name -exe "$($_.Name)";
-            if ($null -eq (Get-NetFirewallRule -Name "$ProgramRule*") ) {
-                Write-Debug "Creating '$($programRule) inbound'";
-                $newRules.add((New-NetFirewallRule -DisplayName "$ProgramRule inbound" -Name "$ProgramRule inbound"  -Action "Allow" -Profile Any -Direction Inbound -Program "$($_.Fullname)"))
-                Write-Debug "Creating '$($programRule) outbound'";
-                $newRules.add((New-NetFirewallRule -DisplayName "$ProgramRule outbound" -Name "$ProgramRule Outbound"  -Action "Allow" -Profile Any -Direction Outbound -Program "$($_.Fullname)"))      
-           } else {
-                "$ProgramRule already exists" | Out-Host;
-           }
-        }
-        if ($null -eq $newRules) {
-            "Some or all Rules already existed" | Out-Host
-        }
+        $newRules = $paths | Add-ProgramRule -type Unblock -count $paths.count;
         return $newRules;
     }
 }

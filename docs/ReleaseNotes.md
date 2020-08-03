@@ -1,4 +1,8 @@
 
+# 1.0.47.1
+
+	added progress bars and modular functions for adding rules to make code a bit cleaner
+
 # 1.0.40.2
 
 	Made it so pipeline variables can be used for paths with examples of filtered get-exepaths output being piped in to show how you could select exes for a program name

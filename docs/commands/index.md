@@ -1,5 +1,9 @@
 # EzFirewallMgmt
 
+## [Add-PortRule](Add-PortRule.md)
+
+## [Add-ProgramRule](Add-ProgramRule.md)
+
 ## [Block-Port](Block-Port.md)
 
 ## [Block-Program](Block-Program.md)

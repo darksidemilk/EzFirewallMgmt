@@ -12,7 +12,7 @@
 RootModule = 'EzFirewallMgmt.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0.40.2'
+ModuleVersion = '1.0.47.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -33,20 +33,20 @@ Copyright = '2020'
 Description = 'Simplified helper functions to block and unblock ports and programs
 Utilizes New-NetFirewallRule and Remove-NetFirewallRule functions and turns them into easier versions'
 
-# Minimum version of the Windows PowerShell engine required by this module
+# Minimum version of the PowerShell engine required by this module
 PowerShellVersion = '3.0'
 
-# Name of the Windows PowerShell host required by this module
+# Name of the PowerShell host required by this module
 # PowerShellHostName = ''
 
-# Minimum version of the Windows PowerShell host required by this module
+# Minimum version of the PowerShell host required by this module
 # PowerShellHostVersion = ''
 
 # Minimum version of Microsoft .NET Framework required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
 # DotNetFrameworkVersion = ''
 
 # Minimum version of the common language runtime (CLR) required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
-# CLRVersion = ''
+# ClrVersion = ''
 
 # Processor architecture (None, X86, Amd64) required by this module
 # ProcessorArchitecture = ''
@@ -70,9 +70,10 @@ PowerShellVersion = '3.0'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Block-Port', 'Block-Program', 'Get-ExePaths', 'Get-PortRuleName', 
-               'Get-ProgramRuleName', 'Remove-PortRule', 'Remove-ProgramRule', 
-               'Unblock-Port', 'Unblock-Program'
+FunctionsToExport = 'Add-PortRule', 'Add-ProgramRule', 'Block-Port', 'Block-Program', 
+               'Get-ExePaths', 'Get-PortRuleName', 'Get-ProgramRuleName', 
+               'Remove-PortRule', 'Remove-ProgramRule', 'Unblock-Port', 
+               'Unblock-Program'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
@@ -111,6 +112,10 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = '
+# 1.0.47.1
+
+	added progress bars and modular functions for adding rules to make code a bit cleaner
+
 # 1.0.40.2
 
 	Made it so pipeline variables can be used for paths with examples of filtered get-exepaths output being piped in to show how you could select exes for a program name

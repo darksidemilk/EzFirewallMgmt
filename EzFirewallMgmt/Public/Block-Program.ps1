@@ -69,7 +69,6 @@ function Block-Program {
     
     begin {
         $paths = New-Object System.Collections.Generic.List[Object];
-        $newRules = New-Object System.Collections.Generic.List[object];
     }
     
     process {
@@ -98,19 +97,7 @@ function Block-Program {
     }
     
     end {
-        Write-Debug "paths list is $($paths | out-string)";
-        $paths | Foreach-Object {
-            $ProgramRule = Get-ProgramRuleName -type "Block" -program $name -exe "$($_.Name)";
-            if ($null -eq (Get-NetFirewallRule -Name "$ProgramRule*") ) {
-                $newRules.add((New-NetFirewallRule -DisplayName "$ProgramRule inbound" -Name "$ProgramRule inbound"  -Action "Block" -Profile Any -Direction Inbound -Program "$($_.Fullname)"))
-                $newRules.add((New-NetFirewallRule -DisplayName "$ProgramRule Outbound" -Name "$ProgramRule Outbound"  -Action "Block" -Profile Any -Direction Outbound -Program "$($_.Fullname)"))      
-           } else {
-                "$ProgramRule already exists" | Out-Host;
-           }
-        }
-        if ($null -eq $newRules) {
-            "Some or all Rules already existed" | Out-Host
-        }
+        $newRules = $paths | Add-ProgramRule -type Block -count $paths.count;
         return $newRules;
     }
 }

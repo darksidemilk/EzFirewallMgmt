@@ -5,6 +5,8 @@ nav:
   - Release Notes: ReleaseNotes.md
   - Commands: 
     - 'Index': 'commands/index.md'
+    - 'Add-PortRule': 'commands/Add-PortRule.md'
+    - 'Add-ProgramRule': 'commands/Add-ProgramRule.md'
     - 'Block-Port': 'commands/Block-Port.md'
     - 'Block-Program': 'commands/Block-Program.md'
     - 'Get-ExePaths': 'commands/Get-ExePaths.md'
