@@ -1,4 +1,8 @@
 
+# 1.0.10.6
+
+	publishing build
+
 # 1.0.10.5
 
 	updated build script to specify powershell version too
