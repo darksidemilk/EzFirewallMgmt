@@ -1,4 +1,8 @@
 
+# 1.0.10.7
+
+	Fix default programname setting to only occur when that paramterset is used when blocking/unblocking a program
+
 # 1.0.10.6
 
 	publishing build

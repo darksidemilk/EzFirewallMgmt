@@ -12,7 +12,7 @@
 RootModule = 'EzFirewallMgmt.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0.10.6'
+ModuleVersion = '1.0.10.7'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -111,6 +111,10 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = '
+# 1.0.10.7
+
+	Fix default programname setting to only occur when that paramterset is used when blocking/unblocking a program
+
 # 1.0.10.6
 
 	publishing build

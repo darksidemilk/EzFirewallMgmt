@@ -95,7 +95,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: ((Get-Item $path)[0].BaseName)
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
