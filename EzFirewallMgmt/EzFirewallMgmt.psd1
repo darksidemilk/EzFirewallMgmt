@@ -12,7 +12,7 @@
 RootModule = 'EzFirewallMgmt.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0.0.9'
+ModuleVersion = '1.0.10.2'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -78,7 +78,7 @@ FunctionsToExport = 'Block-Port', 'Block-Program', 'Get-PortRuleName',
 CmdletsToExport = @()
 
 # Variables to export from this module
-VariablesToExport = '*'
+# VariablesToExport = @()
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
 AliasesToExport = @()
@@ -111,41 +111,21 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = '
+# 1.0.10.2
+
+	Updated readme and release notes with formatting. Added more intro information inf readme. Got module ready for publishing to psgallery completely
+
+# 1.0.10.1
+
+	general updates and bug fixes
+
 # 1.0.0.9
 
-	general updates and bug fixes
-
-# 1.0.0.8
-
-	general updates and bug fixes
-
-# 1.0.0.7
-
-	general updates and bug fixes
-
-# 1.0.0.6
-
-	general updates and bug fixes
-
-# 1.0.0.5
-
-	general updates and bug fixes
-
-# 1.0.0.4
-
-	general updates and bug fixes
-
-# 1.0.0.3
-
-	general updates and bug fixes
-
-# 1.0.0.2
-
-	general updates and bug fixes
+    Added Help Documentation to each function and fixed some typos
 
 # 1.0.0.1
 
-	general updates and bug fixes
+    Initial Release
 '
 
         # Prerelease string of this module
