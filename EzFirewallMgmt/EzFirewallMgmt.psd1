@@ -12,7 +12,7 @@
 RootModule = 'EzFirewallMgmt.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0.10.7'
+ModuleVersion = '1.0.10.8'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -111,6 +111,10 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = '
+# 1.0.10.8
+
+	Use -Filter "*.exe" not -include when finding all exes with get-childitem
+
 # 1.0.10.7
 
 	Fix default programname setting to only occur when that paramterset is used when blocking/unblocking a program
