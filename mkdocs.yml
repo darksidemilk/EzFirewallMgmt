@@ -1,0 +1,17 @@
+site_name: EzFirewallMgmt
+nav:
+  - Home: index.md
+  - About: about_EzFirewallMgmt.md
+  - Release Notes: ReleaseNotes.md
+  - Commands: 
+    - 'Index': 'commands/index.md'
+    - 'Block-Port': 'commands/Block-Port.md'
+    - 'Block-Program': 'commands/Block-Program.md'
+    - 'Get-PortRuleName': 'commands/Get-PortRuleName.md'
+    - 'Get-ProgramRuleName': 'commands/Get-ProgramRuleName.md'
+    - 'Remove-PortRule': 'commands/Remove-PortRule.md'
+    - 'Remove-ProgramRule': 'commands/Remove-ProgramRule.md'
+    - 'Unblock-Port': 'commands/Unblock-Port.md'
+    - 'Unblock-Program': 'commands/Unblock-Program.md'
+
+theme: readthedocs
