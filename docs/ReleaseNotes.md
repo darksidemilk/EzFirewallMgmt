@@ -2,6 +2,7 @@
 # 1.0.47.1
 
 	added progress bars and modular functions for adding rules to make code a bit cleaner
+	Added this one as a release on github with the raw nupkg file
 
 # 1.0.40.2
 
