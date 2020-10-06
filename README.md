@@ -13,6 +13,8 @@ You can find documentation hosted on this project's readthedocs page [https://Ez
 
 This module is published in the powershellgallery.com. Simply run `Install-Module EzFirewallMgmt` in powershell to install the latest published version. Then `Import-Module EzFirewallMgmt` to start using it.
 
+See also https://www.powershellgallery.com/packages/EzFirewallMgmt
+
 ### Manual Building
 
 * Clone this repo
