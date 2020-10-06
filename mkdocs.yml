@@ -17,4 +17,4 @@ nav:
     - 'Unblock-Port': 'commands/Unblock-Port.md'
     - 'Unblock-Program': 'commands/Unblock-Program.md'
 
-theme: material
+theme: readthedocs
